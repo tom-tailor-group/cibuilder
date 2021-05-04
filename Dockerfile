@@ -35,8 +35,8 @@ RUN chmod +x terragrunt
 
 ## Helm3
 FROM base as helm3
-ARG helm3_version="3.3.3"
-ARG checksum="246d58b6b353e63ae8627415a7340089015e3eb542ff7b5ce124b0b1409369cc"
+ARG helm3_version="3.5.4"
+ARG checksum="a8ddb4e30435b5fd45308ecce5eaad676d64a5de9c89660b56face3fe990b318"
 RUN curl -sSL -o helm3.tgz \
     https://get.helm.sh/helm-v${helm3_version}-linux-amd64.tar.gz
 RUN echo Download checksum: $(sha256sum helm3.tgz)
@@ -56,7 +56,7 @@ FROM amazonlinux:2
 COPY --from=terraform   /tmp/terraform    /usr/local/bin/terraform
 COPY --from=terragrunt  /tmp/terragrunt   /usr/local/bin/terragrunt
 COPY --from=kubectl     /tmp/kubectl      /usr/local/bin/kubectl
-COPY --from=helm3       /tmp/linux-amd64/helm         /usr/local/bin/helm3
+COPY --from=helm3       /tmp/linux-amd64/helm         /usr/local/bin/helm
 COPY --from=jq          /tmp/jq           /usr/local/bin/jq
 
 ARG ENVIRONMENT
